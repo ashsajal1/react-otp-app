@@ -57,7 +57,7 @@ export default function OtpPrompt({ isSent, handleSendOtp, otpValues, setOtpValu
       </div>
 
       <div>
-        {error && <p className="error-message">Please fill in all OTP boxes</p>}
+        {error && <p className="error">Please fill in all OTP boxes</p>}
       </div>
     </form>
   );
