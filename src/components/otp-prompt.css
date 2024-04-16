@@ -13,4 +13,16 @@
     width: 60px;
     height: 60px;
     text-align: center;
+    border:1px solid rgba(0,0,0,0.1);
+    transition: all .02s;
+}
+
+.otp-container input:focus {
+    padding: 10px;
+    border-radius: 6px;
+    outline: none;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    border:2px solid rgba(0,0,0,0.8);
 }
