@@ -1,0 +1,13 @@
+.otp-container {
+    display: flex;
+    padding: 24px;
+    align-items: center;
+    justify-content: center;
+    column-gap: 4px;
+}
+
+.otp-container input {
+    padding: 10px;
+    border-radius: 6px;
+    outline: none;
+}

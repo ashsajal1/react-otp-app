@@ -1,4 +1,5 @@
 import { useState } from "react";
+import OtpPrompt from "./components/otp-prompt";
 
 export default function App() {
   const createOtp = () => {
@@ -17,13 +18,7 @@ export default function App() {
 
   return (
     <div>
-      {otp}
-      <div>
-        <input title="otp box" type="number" />
-        <input title="otp box" type="number" />
-        <input title="otp box" type="number" />
-        <input title="otp box" type="number" />
-      </div>
+      <OtpPrompt />
       <button onClick={handleSendOtp}>{isSent ? 'Resend':'Send'} otp</button>
     </div>
   )
