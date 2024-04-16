@@ -1,5 +1,7 @@
 import { useState } from "react";
 import OtpPrompt from "./components/otp-prompt";
+import { toast, Toaster } from 'react-hot-toast'
+
 import './App.css'
 export default function App() {
   const createOtp = () => {
@@ -14,10 +16,12 @@ export default function App() {
     const updatedOtp = createOtp();
     setOtp(updatedOtp)
     setIsSent(true)
+    toast.success(`Your otp is ${updatedOtp}!`)
   }
 
   return (
     <div className="wrapper">
+      <Toaster />
       <div>
         <OtpPrompt />
         <button className="submit-btn">Submit</button>
