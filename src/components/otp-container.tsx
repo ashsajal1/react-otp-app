@@ -13,10 +13,24 @@ export default function OtpContainer() {
 
     const handleSendOtp = () => {
         const updatedOtp = createOtp();
-        setOtp(updatedOtp)
-        setIsSent(true)
-        toast.success(`Your otp is ${updatedOtp}!`)
+        setOtp(updatedOtp);
+        setIsSent(true);
+        setError(false);
+    
+        toast.promise(
+            new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve(updatedOtp); // Resolve the promise after a delay (simulating sending OTP)
+                }, 1000); // Change the delay as needed
+            }),
+            {
+                loading: 'Sending OTP...', // Loading message while the OTP is being sent
+                success: <b>Your OTP is {updatedOtp}</b>, // Message displayed on success
+                error: <b>Failed to send OTP.</b>, // Message displayed on error
+            }
+        );
     }
+    
 
     const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault()
