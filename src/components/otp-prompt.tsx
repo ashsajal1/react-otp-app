@@ -1,7 +1,12 @@
 import { useState, useRef, ChangeEvent } from 'react';
 import './otp-prompt.css';
 
-export default function OtpPrompt() {
+interface OtpPromptProps {
+  isSent: boolean,
+  handleSendOtp: () => void
+}
+
+export default function OtpPrompt({ isSent, handleSendOtp }: OtpPromptProps) {
   const [otpValues, setOtpValues] = useState(['', '', '', '']);
   const [error, setError] = useState(false); // State to track error
   const otpInputs = useRef<(HTMLInputElement | null)[]>([]);
@@ -45,21 +50,29 @@ export default function OtpPrompt() {
 
   return (
     <form onSubmit={handleSubmit} className='otp-container'>
-      {otpValues.map((value, index) => (
-        <input
-          key={index}
-          ref={(input) => (otpInputs.current[index] = input)}
-          className='otp-input'
-          title="otp box"
-          type="text"
-          maxLength={1}
-          value={value}
-          onChange={(e) => handleInputChange(e, index)}
-        />
-      ))}
+      <div className='input-boxs'>
+        {otpValues.map((value, index) => (
+          <input
+            key={index}
+            ref={(input) => (otpInputs.current[index] = input)}
+            className='otp-input'
+            title="otp box"
+            type="text"
+            maxLength={1}
+            value={value}
+            onChange={(e) => handleInputChange(e, index)}
+          />
+        ))}
+      </div>
 
-      <button type='submit'>Submit</button>
-      {error && <p className="error-message">Please fill in all OTP boxes</p>}
+      <div className='cta-btns'>
+        <button className='btn btn-primary' type='submit'>Submit</button>
+        <button className='btn btn-secondary' onClick={handleSendOtp}>{isSent ? 'Resend' : 'Send'} OTP</button>
+      </div>
+
+      <div>
+        {error && <p className="error-message">Please fill in all OTP boxes</p>}
+      </div>
     </form>
   );
 }

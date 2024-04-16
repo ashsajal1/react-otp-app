@@ -19,10 +19,9 @@ export default function OtpContainer() {
         <div className="container">
             <Toaster />
             <div>
-                <OtpPrompt />
-                <button className="submit-btn">Submit</button>
+                <OtpPrompt handleSendOtp={handleSendOtp} isSent={isSent} />
             </div>
-            <button onClick={handleSendOtp}>{isSent ? 'Resend' : 'Send'} otp</button>
+            
         </div>
     )
 }

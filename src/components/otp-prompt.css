@@ -1,9 +1,10 @@
 .otp-container {
     display: flex;
+    flex-direction: column;
     padding: 24px;
     align-items: center;
     justify-content: center;
-    column-gap: 4px;
+    row-gap: 20px;
 }
 
 .otp-container input {
@@ -25,4 +26,19 @@
     height: 60px;
     text-align: center;
     border:2px solid rgba(0,0,0,0.8);
+}
+
+.otp-container .cta-btns {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 4px;
+    width: 100%;
+}
+
+.otp-container .input-boxs {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 4px;
 }
