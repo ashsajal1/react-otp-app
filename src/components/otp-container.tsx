@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { toast, Toaster } from 'react-hot-toast'
 
 import OtpPrompt from "./otp-prompt";
 import { createOtp } from "../lib/createOtp";
 import './otp-container.css'
+import { checkOtp } from "../lib/checkOtp";
 export default function OtpContainer() {
     const [otp, setOtp] = useState<number | null>(null)
     const [isSent, setIsSent] = useState(false);
+    const [otpValues, setOtpValues] = useState(['', '', '', '']);
+    const [error, setError] = useState(false); // State to track error
 
     const handleSendOtp = () => {
         const updatedOtp = createOtp();
@@ -15,13 +18,40 @@ export default function OtpContainer() {
         toast.success(`Your otp is ${updatedOtp}!`)
     }
 
+    const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        // Check if any of the OTP boxes is empty
+        const isEmpty = otpValues.some(value => value === '');
+        if (isEmpty) {
+            setError(true); // Set error state to true
+            return;
+        }
+
+        setError(false); // Reset error state if no boxes are empty
+
+        const userEnteredOtp = otpValues.join('');
+        // Here you can do whatever you want with the OTP value, such as sending it to a server or validating it
+        // console.log('Submitted OTP:', userEnteredOtp);
+        // console.log(otpValues)
+        const isValid = otp !== null ? checkOtp(parseInt(userEnteredOtp), otp) : false;
+
+        if(isValid) {
+            setOtpValues(['','','',''])
+            toast.success("You entered valid OTP!")
+        } else {
+            toast.error("You entered invalid OTP!")
+        }
+
+        // console.log(isValid)
+    };
+
     return (
         <div className="container">
             <Toaster />
             <div>
-                <OtpPrompt handleSendOtp={handleSendOtp} isSent={isSent} />
+                <OtpPrompt handleSubmit={handleSubmit} error={error} setOtpValues={setOtpValues} otpValues={otpValues} handleSendOtp={handleSendOtp} isSent={isSent} />
             </div>
-            
+
         </div>
     )
 }

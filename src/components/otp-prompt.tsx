@@ -1,14 +1,17 @@
-import { useState, useRef, ChangeEvent } from 'react';
+import { useRef, ChangeEvent } from 'react';
 import './otp-prompt.css';
 
 interface OtpPromptProps {
   isSent: boolean,
-  handleSendOtp: () => void
+  handleSendOtp: () => void,
+  otpValues: string[],
+  setOtpValues: (otpValues: string[]) => void,
+  error: boolean,
+  handleSubmit: (e:ChangeEvent<HTMLFormElement>) => void
 }
 
-export default function OtpPrompt({ isSent, handleSendOtp }: OtpPromptProps) {
-  const [otpValues, setOtpValues] = useState(['', '', '', '']);
-  const [error, setError] = useState(false); // State to track error
+export default function OtpPrompt({ isSent, handleSendOtp, otpValues, setOtpValues, error, handleSubmit }: OtpPromptProps) {
+
   const otpInputs = useRef<(HTMLInputElement | null)[]>([]);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>, index: number) => {
@@ -30,23 +33,6 @@ export default function OtpPrompt({ isSent, handleSendOtp }: OtpPromptProps) {
       }
     }
   };
-
-  const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    // Check if any of the OTP boxes is empty
-    const isEmpty = otpValues.some(value => value === '');
-    if (isEmpty) {
-      setError(true); // Set error state to true
-      return;
-    }
-
-    setError(false); // Reset error state if no boxes are empty
-
-    const otp = otpValues.join('');
-    // Here you can do whatever you want with the OTP value, such as sending it to a server or validating it
-    console.log('Submitted OTP:', otp);
-  };
-
 
   return (
     <form onSubmit={handleSubmit} className='otp-container'>
