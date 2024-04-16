@@ -1,6 +1,6 @@
 import { useState } from "react";
 import OtpPrompt from "./components/otp-prompt";
-
+import './App.css'
 export default function App() {
   const createOtp = () => {
     const otp = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
@@ -17,9 +17,12 @@ export default function App() {
   }
 
   return (
-    <div>
-      <OtpPrompt />
-      <button onClick={handleSendOtp}>{isSent ? 'Resend':'Send'} otp</button>
+    <div className="wrapper">
+      <div>
+        <OtpPrompt />
+        <button className="submit-btn">Submit</button>
+      </div>
+      <button onClick={handleSendOtp}>{isSent ? 'Resend' : 'Send'} otp</button>
     </div>
   )
 }
